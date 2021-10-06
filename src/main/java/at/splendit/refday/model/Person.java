@@ -1,5 +1,8 @@
 package at.splendit.refday.model;
 
-public class Person {
+/** 
+ * An empty interface.
+ */
+public interface Person {
 
 }

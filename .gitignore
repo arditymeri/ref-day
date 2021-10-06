@@ -3,4 +3,5 @@ bint/
 .settings/
 .classpath
 .project
+.java-version
 
