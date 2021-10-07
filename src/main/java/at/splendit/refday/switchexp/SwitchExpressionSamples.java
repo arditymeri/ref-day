@@ -46,26 +46,49 @@ public class SwitchExpressionSamples {
 		return medal;
 	}
 
-	public String switchStatementVariableScope(int position) {
+	public String switchStatementVariableScope(int position, String time) {
 		String medal;
 		switch (position) {
 		case 1:
-			String time = "47.03";
+			String recordDelta = findRecordDelta(time);
 			medal = "Gold";
 			break;
 		case 2:
-			time = "47.22";
+			recordDelta = findRecordDelta(time);
 			medal = "Silver";
-			logger.info("Medal: {}, time: {}", medal, time);
 			break;
 		case 3:
-			time = "48:15";
+			recordDelta = findRecordDelta(time);
 			medal = "Bronze";
 			break;
 		default:
 			medal = "";
 		}
 		return medal;
+	}
+	
+	public String switchExpressionVariableScope(int position, String time) {
+		String medal;
+		switch (position) {
+		case 1 -> {
+			String recordDelta = findRecordDelta(time);
+			medal = "Gold";
+		}
+		case 2 -> {
+			String recordDelta = findRecordDelta(time);
+			medal = "Silver";
+		}
+		case 3 -> {
+			String recordDelta = findRecordDelta(time);
+			medal = "Bronze";
+		}
+		default -> medal = "";
+		}
+		return medal;
+	}
+
+	private String findRecordDelta(String time) {
+		return "+0.05";
 	}
 
 	public void exhaustiveness(Day day) {
@@ -86,6 +109,26 @@ public class SwitchExpressionSamples {
 			System.out.println(9);
 			break;
 		}
+		
+		int length;
+		switch (day) {
+		case MONDAY:
+		case FRIDAY:
+		case SUNDAY:
+			length = 6;
+			break;
+		case TUESDAY:
+			length = 7;
+			break;
+		case THURSDAY:
+		case SATURDAY:
+			length = 8;
+			break;
+		case WEDNESDAY:
+			length = 9;
+			break;
+		}
+		// System.out.println("Length = " + length); 
 	}
 
 	public void expressionExhaustiveness(Day day) {
@@ -95,6 +138,14 @@ public class SwitchExpressionSamples {
 		case THURSDAY, SATURDAY -> System.out.println(8);
 		case WEDNESDAY -> System.out.println(9);
 		}
+		
+		int length = switch (day) {
+		case MONDAY, FRIDAY, SUNDAY -> 6;
+		case TUESDAY -> 7;
+		case THURSDAY, SATURDAY -> 8;
+		case WEDNESDAY -> 9;
+		};
+		
 	}
 
 	boolean yieldingValue(String value) {
@@ -125,4 +176,23 @@ public class SwitchExpressionSamples {
 		return value;
 	}
 
+	
+	int yieldingIntValue(String value) {
+		int truth = switch (value) {
+		case "t", "true", "True", "TRUE" -> {
+			logger.debug("Assuming true for: {}", value);
+			yield(1);
+		}
+		default -> {
+			logger.debug("Assuming false for {}", value);
+			yield 0;
+		}
+		};
+		this.yield(2);
+		return 0;
+	}
+
+	void yield(int value) {
+		
+	}
 }

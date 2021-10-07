@@ -29,4 +29,19 @@ public class TextBlockSamples {
 			""";
 		return html;
 	}
+	
+	public void newEscapeSequences() {
+		
+		String literal = "Lorem ipsum dolor sit amet, consectetur adipiscing " +
+                "elit, sed do eiusmod tempor incididunt ut labore " +
+                "et dolore magna aliqua.";
+		System.out.println(literal);
+		// escape line separators
+		String textBlockLiteral = """
+                Lorem ipsum dolor sit amet, consectetur adipiscing \
+                elit, sed do eiusmod tempor incididunt ut labore \
+                et dolore magna aliqua.\
+                """;
+		System.out.println(textBlockLiteral);
+	}
 }
